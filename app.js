@@ -98,8 +98,8 @@ function onGalleryClick(event) {
   lightboxImage.alt = image.alt
   lightbox.classList.add("is-open")
 }
-closeButton.addEventListener("click", onCloseLightbox)
-function onCloseLightbox() {
-  lightbox.classList.remove("is-open")
-  
-}
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    lightbox.classList.remove("is-open")
+  }
+})
