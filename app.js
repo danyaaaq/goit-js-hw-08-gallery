@@ -103,4 +103,3 @@ function onCloseLightbox() {
   lightbox.classList.remove("is-open")
   
 }
-
