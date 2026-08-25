@@ -63,3 +63,44 @@ const galleryItems = [
     description: 'Lighthouse Coast Sea',
   },
 ];
+
+const gallery = document.querySelector(".js-gallery")
+const lightbox = document.querySelector(".js-lightbox")
+const lightboxImage = document.querySelector(".lightbox__image")
+const closeButton = document.querySelector(
+  'button[data-action="close-lightbox"]'
+)
+const galleryMarkup = galleryItems
+  .map(
+    ({ preview, original, description }) => `
+      <li class="gallery__item">
+        <a class="gallery__link" href="${original}">
+          <img
+            class="gallery__image"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"
+          />
+        </a>
+      </li>
+    `
+  )
+  .join("")
+gallery.innerHTML = galleryMarkup
+gallery.addEventListener("click", onGalleryClick)
+function onGalleryClick(event) {
+  event.preventDefault()
+  if (!event.target.classList.contains("gallery__image")) {
+    return
+  }
+  const image = event.target
+  lightboxImage.src = image.dataset.source
+  lightboxImage.alt = image.alt
+  lightbox.classList.add("is-open")
+}
+closeButton.addEventListener("click", onCloseLightbox)
+function onCloseLightbox() {
+  lightbox.classList.remove("is-open")
+  
+}
+
