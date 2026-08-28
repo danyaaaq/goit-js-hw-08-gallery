@@ -90,7 +90,7 @@ gallery.innerHTML = galleryMarkup
 gallery.addEventListener("click", onGalleryClick)
 function onGalleryClick(event) {
   event.preventDefault()
-  if (!event.target.classList.contains("gallery__image")) {
+  if (event.target.nodeName !== "IMG") {
     return
   }
   const image = event.target
@@ -98,8 +98,11 @@ function onGalleryClick(event) {
   lightboxImage.alt = image.alt
   lightbox.classList.add("is-open")
 }
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") {
-    lightbox.classList.remove("is-open")
+
+document.addEventListener("keydown", onKeyPress)
+function onKeyPress(event) {
+  if (event.key !== "Escape") {
+    return
   }
-})
+  lightbox.classList.remove("is-open")
+}
